@@ -3,6 +3,7 @@ const { createApp } = Vue;
 createApp({
   data() {
     return {
+      interval: null,
       // creo una variabile d'appoggio
       activeImgIndex: 0,
       slides: [
@@ -34,7 +35,16 @@ createApp({
       ],
     };
   },
+  mounted() {
+    this.interval = setInterval(this.changeImgNext, 3000);
+  },
   methods: {
+    mouseEnter() {
+      clearInterval(this.interval);
+    },
+    mouseLeave() {
+      this.interval = setInterval(this.changeImgNext, 3000);
+    },
     changeImgNext() {
       // creo una condizione in modo che non mi vada in errore quando scorro tutte le immagini
       if (this.activeImgIndex < this.slides.length - 1) {
@@ -50,6 +60,10 @@ createApp({
       } else {
         this.activeImgIndex = this.slides.length - 1;
       }
+    },
+
+    selectImage(index) {
+      this.activeImgIndex = index;
     },
   },
 }).mount("#app");

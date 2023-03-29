@@ -11,7 +11,12 @@
   <body>
     <div id="app">
       <div class="container">
-        <div class="slider-wrapper" tabindex="0">
+        <div
+          class="slider-wrapper"
+          tabindex="0"
+          @mouseenter="mouseEnter"
+          @mouseleave="mouseLeave"
+        >
           <div class="item">
             <!-- immagine in modo dinamico mettendo array, posizione e elemento dell'oggetto -->
             <img :src="slides[activeImgIndex].image" alt="Spiderman" />
@@ -27,7 +32,8 @@
 
             <div
               class="thumb"
-              :class="index === activeImgIndex ? 'active' :  ' '"
+              @click="selectImage(index)"
+              :class="index === activeImgIndex ? 'active' :  ' ' "
               v-for="(slide, index) in slides"
               :key="index"
             >
